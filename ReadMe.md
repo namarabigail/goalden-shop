@@ -1,5 +1,6 @@
 # Tugas Individu 2 - PBP 
 Abigail Namaratonggi P - 2406495773 - PBP C
+
 Tautan menuju aplikasi  -> https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id/
 
 ## Jawaban Pertanyaan
@@ -44,7 +45,7 @@ Tautan menuju aplikasi  -> https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac
 
 
 ### 3. Jelaskan peran settings.py dalam proyek Django!
-    `settings.py` berfungsi untuk mengatur project web. `settings.py` berisikan konfigurasi proyek seperti pengaturan keamanan (`SECRET_KEY`, `DEBUG`, dan `ALLOWED_HOSTS`), konfigurasi aplikasi dan middleware (`INSTALLED_APPS` dan `MIDDLEWARE`), pengaturan tampilan (`TEMPLATES`), pengelolaan database (`DATABASES`), dan `STATIC_URL`.
+`settings.py` berfungsi untuk mengatur project web. `settings.py` berisikan konfigurasi proyek seperti pengaturan keamanan (`SECRET_KEY`, `DEBUG`, dan `ALLOWED_HOSTS`), konfigurasi aplikasi dan middleware (`INSTALLED_APPS` dan `MIDDLEWARE`), pengaturan tampilan (`TEMPLATES`), pengelolaan database (`DATABASES`), dan `STATIC_URL`.
 
 ### 4. Bagaimana cara kerja migrasi database di Django?
 
