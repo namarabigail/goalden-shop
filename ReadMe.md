@@ -43,6 +43,7 @@ Tautan menuju aplikasi  -> https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac
 
 ### 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 ![alt text](<Bagan Alur Django-1.png>)
+
 Link -> https://drive.google.com/file/d/1Q6WsjmPzmc3s093xb-9kpwdvAplgZJU1/view?usp=sharing
 
 Pada bagan, alur Django dimulai ketika user mengirimkan HTTP Request ke server, lalu request tersebut diterima oleh `urls.py` untuk dicocokkan dengan alamat URL yang ada. Jika cocok, request diteruskan ke `views.py`. Jika dibutuhkan untuk menulis atau membaca database maka `views.py` akan berinteraksi dengan `models.py`. Data yang telah didapat kemudian dikirimkan ke template (.html) agar tampilannya sesuai. Hasil akhirnya adalah HTTP Response dalam bentuk HTML yang akan dikembalikan ke user.
