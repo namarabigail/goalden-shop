@@ -20,4 +20,6 @@ class Product(models.Model):
     rating = models.FloatField(default=0.0)
     size = models.CharField(max_length=10, blank=True, null=True)
     brand = models.CharField(max_length=100, blank=True, null=True)
-    location = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

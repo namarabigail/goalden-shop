@@ -42,15 +42,19 @@ Tautan menuju aplikasi  -> https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac
 
 
 ### 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+![alt text](<Bagan Alur Django-1.png>)
+Link -> https://drive.google.com/file/d/1Q6WsjmPzmc3s093xb-9kpwdvAplgZJU1/view?usp=sharing
 
+Pada bagan, alur Django dimulai ketika user mengirimkan HTTP Request ke server, lalu request tersebut diterima oleh `urls.py` untuk dicocokkan dengan alamat URL yang ada. Jika cocok, request diteruskan ke `views.py`. Jika dibutuhkan untuk menulis atau membaca database maka `views.py` akan berinteraksi dengan `models.py`. Data yang telah didapat kemudian dikirimkan ke template (.html) agar tampilannya sesuai. Hasil akhirnya adalah HTTP Response dalam bentuk HTML yang akan dikembalikan ke user.
 
 ### 3. Jelaskan peran settings.py dalam proyek Django!
 `settings.py` berfungsi untuk mengatur project web. `settings.py` berisikan konfigurasi proyek seperti pengaturan keamanan (`SECRET_KEY`, `DEBUG`, dan `ALLOWED_HOSTS`), konfigurasi aplikasi dan middleware (`INSTALLED_APPS` dan `MIDDLEWARE`), pengaturan tampilan (`TEMPLATES`), pengelolaan database (`DATABASES`), dan `STATIC_URL`.
 
 ### 4. Bagaimana cara kerja migrasi database di Django?
-
+Migrasi pada Django adalah cara untuk menerapkan perubahan model ke database. Perintah `python manage.py makemigrations` digunakan untuk membuat file migrasi yang isinya perubahan model yang belum diterapkan ke database. Setelah itu, `python manage.py migrate` akan menerapkan perubahan model tersebut ke database.
 
 ### 5. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
-
+Django dijadikan permulaan pembelajaran pengembangan perangkat lunak karena membuat proses pengembangan aplikasi web lebih aman, cepat, dan mudah dimaintain. Django juga memiliki fitur bawaan untuk autentikasi pengguna, pengelolaan basis data, dan manajemen cookie sehingga developer tidak perlu menulis kode dari nol.
 
 ### 6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
+Asdos tutorial 1 sangat membantu saya dalam mengikuti dan mengatasi kesulitan saat tutorial.
