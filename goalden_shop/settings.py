@@ -29,6 +29,10 @@ SECRET_KEY = 'django-insecure-x&fgwg39^1c5ng_2fk(26i#mybgs=d8kbb_%_w!$ijcnc$e&t8
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id/"
+]
+
 ALLOWED_HOSTS = ["localhost", "127.0.0.1","abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id"]
 
 
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'goalden_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
