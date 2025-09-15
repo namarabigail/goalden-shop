@@ -30,7 +30,7 @@ PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id/"
+    "https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id"
 ]
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1","abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id"]
