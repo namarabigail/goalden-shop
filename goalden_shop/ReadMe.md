@@ -60,46 +60,46 @@ path('json/<str:products_id>/', show_json_by_id, name='show_json_by_id'),
 * **Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek**
   -  Menampilkan data produk dari `products_list` di `main.html` menggunakan tag `{% for product in products_list %}`. Jika kosong, akan menampilkan teks No products available yet.
   - Menambahkan tombol Add di `main.html` yang akan redirect ke halaman form penambahan product.
-```html
-<a href="{% url 'main:add_products' %}">
-  <button>+ Add </button>
-</a>
-```
+    ```html
+    <a href="{% url 'main:add_products' %}">
+      <button>+ Add </button>
+    </a>
+    ```
   - Menambahkan tombol Detail pada setiap data product yang ditampilkan untuk menampilkan halaman detail product.
-```html
-<p><a href="{% url 'main:show_products' product.id %}">
-  <button>Detail</button>
-</a></p>
-```
+    ```html
+    <p><a href="{% url 'main:show_products' product.id %}">
+      <button>Detail</button>
+    </a></p>
+    ```
 
 * **Membuat halaman `form` untuk menambahkan objek model pada app sebelumnya**
   - Membuat `forms.py` pada `main` dan tambahkan `ProductForm`.
   - Menambahkan fungsi `add_products` pada `views.py`.
-```python
-def add_products(request):
-    form = ProductForm(request.POST or None)
+    ```python
+    def add_products(request):
+        form = ProductForm(request.POST or None)
 
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return redirect('main:show_main')
+        if form.is_valid() and request.method == "POST":
+            form.save()
+            return redirect('main:show_main')
 
-    context = {'form': form}
-    return render(request, "add_products.html", context)
-```
+        context = {'form': form}
+        return render(request, "add_products.html", context)
+    ```
   - Membuat `add_products.html` pada `main/templates` yang menampilkan form untuk menambahkan produk baru. 
   - Menambahkan `path('add-products/', add_products, name='add_products')` ke dalam `urlpatterns`.
 
 * **Membuat halaman yang menampilkan detail dari setiap data objek model**
   - Menambahkan fungsi `show_products` pada `views.py`.
-```python
-def show_products(request, id):
-    product = get_object_or_404(Product, pk=id)
-    context = {
-        'product': product
-    }
+    ```python
+    def show_products(request, id):
+        product = get_object_or_404(Product, pk=id)
+        context = {
+            'product': product
+        }
 
-    return render(request, "products_detail.html", context)
-```
+        return render(request, "products_detail.html", context)
+    ```
   - Membuat `products_detail.html` pada `main/templates` yang menampilkan detail lengkap produk. 
   - Menambahkan `path('product/<str:id>/', show_products, name='show_products'),` ke dalam `urlpatterns`.
 
