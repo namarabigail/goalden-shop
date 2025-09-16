@@ -65,7 +65,7 @@ path('json/<str:products_id>/', show_json_by_id, name='show_json_by_id'),
   <button>+ Add </button>
 </a>
 ```
-   - Menambahkan tombol Detail pada setiap data product yang ditampilkan untuk menampilkan halaman detail product.
+      - Menambahkan tombol Detail pada setiap data product yang ditampilkan untuk menampilkan halaman detail product.
 ```html
 <p><a href="{% url 'main:show_products' product.id %}">
   <button>Detail</button>
