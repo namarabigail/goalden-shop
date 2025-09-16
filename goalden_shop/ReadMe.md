@@ -46,8 +46,8 @@ def show_json_by_id(request, products_id):
 ```
 
 * **Membuat routing URL untuk masing-masing `views` yang telah ditambahkan**
-   - Mengimport fungsi `show_xml`, `show_json`, `show_xml_by_id`, dan `show_json_by_id` ke dalam `urls.py`.
-   - Menambahkan path url ke dalam `urlpatterns`.
+  - Mengimport fungsi `show_xml`, `show_json`, `show_xml_by_id`, dan `show_json_by_id` ke dalam `urls.py`.
+  - Menambahkan path url ke dalam `urlpatterns`.
 ```python
 ...
 path('xml/', show_xml, name='show_xml'),
@@ -58,14 +58,14 @@ path('json/<str:products_id>/', show_json_by_id, name='show_json_by_id'),
  ```
 
 * **Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek**
-   -  Menampilkan data produk dari `products_list` di `main.html` menggunakan tag `{% for product in products_list %}`. Jika kosong, akan menampilkan teks No products available yet.
-   - Menambahkan tombol Add di `main.html` yang akan redirect ke halaman form penambahan product.
+  -  Menampilkan data produk dari `products_list` di `main.html` menggunakan tag `{% for product in products_list %}`. Jika kosong, akan menampilkan teks No products available yet.
+  - Menambahkan tombol Add di `main.html` yang akan redirect ke halaman form penambahan product.
 ```html
 <a href="{% url 'main:add_products' %}">
   <button>+ Add </button>
 </a>
 ```
-      - Menambahkan tombol Detail pada setiap data product yang ditampilkan untuk menampilkan halaman detail product.
+  - Menambahkan tombol Detail pada setiap data product yang ditampilkan untuk menampilkan halaman detail product.
 ```html
 <p><a href="{% url 'main:show_products' product.id %}">
   <button>Detail</button>
@@ -73,8 +73,8 @@ path('json/<str:products_id>/', show_json_by_id, name='show_json_by_id'),
 ```
 
 * **Membuat halaman `form` untuk menambahkan objek model pada app sebelumnya**
-   - Membuat `forms.py` pada `main` dan tambahkan `ProductForm`.
-   - Menambahkan fungsi `add_products` pada `views.py`.
+  - Membuat `forms.py` pada `main` dan tambahkan `ProductForm`.
+  - Menambahkan fungsi `add_products` pada `views.py`.
 ```python
 def add_products(request):
     form = ProductForm(request.POST or None)
@@ -86,11 +86,11 @@ def add_products(request):
     context = {'form': form}
     return render(request, "add_products.html", context)
 ```
-   - Membuat `add_products.html` pada `main/templates` yang menampilkan form untuk menambahkan produk baru. 
-   - Menambahkan `path('add-products/', add_products, name='add_products')` ke dalam `urlpatterns`.
+  - Membuat `add_products.html` pada `main/templates` yang menampilkan form untuk menambahkan produk baru. 
+  - Menambahkan `path('add-products/', add_products, name='add_products')` ke dalam `urlpatterns`.
 
 * **Membuat halaman yang menampilkan detail dari setiap data objek model**
-   - Menambahkan fungsi `show_products` pada `views.py`.
+  - Menambahkan fungsi `show_products` pada `views.py`.
 ```python
 def show_products(request, id):
     product = get_object_or_404(Product, pk=id)
@@ -100,8 +100,8 @@ def show_products(request, id):
 
     return render(request, "products_detail.html", context)
 ```
-   - Membuat `products_detail.html` pada `main/templates` yang menampilkan detail lengkap produk. 
-   - Menambahkan `path('product/<str:id>/', show_products, name='show_products'),` ke dalam `urlpatterns`.
+  - Membuat `products_detail.html` pada `main/templates` yang menampilkan detail lengkap produk. 
+  - Menambahkan `path('product/<str:id>/', show_products, name='show_products'),` ke dalam `urlpatterns`.
 
 
 ### 6. Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
