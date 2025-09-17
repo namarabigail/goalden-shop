@@ -17,4 +17,11 @@
 {% if product.is_featured %}
     <p><b>Featured</b></p>
 {% endif %}
+
+{% if news.user %}
+    <p>Seller: {{ news.user.username }}</p>
+{% else %}
+    <p>Seller: Anonymous</p>
+{% endif %}
+
 {% endblock content %}
