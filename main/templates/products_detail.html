@@ -18,8 +18,8 @@
     <p><b>Featured</b></p>
 {% endif %}
 
-{% if products.user %}
-    <p>Seller: {{ products.user.username }}</p>
+{% if product.user %}
+    <p>Seller: {{ product.user.username }}</p>
 {% else %}
     <p>Seller: Anonymous</p>
 {% endif %}

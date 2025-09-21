@@ -11,15 +11,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # migrations.AlterField(
-        #     model_name='product',
-        #     name='id',
-        #     field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
-        # ),
-        migrations.RemoveField(model_name='product', name='id'),
-        migrations.AddField(
+        migrations.AlterField(
             model_name='product',
             name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False),
+            field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
         ),
+        # migrations.RemoveField(model_name='product', name='id'),
+        # migrations.AddField(
+        #     model_name='product',
+        #     name='id',
+        #     field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False),
+        # ),
     ]
