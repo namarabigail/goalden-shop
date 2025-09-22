@@ -9,14 +9,17 @@
     <br><br>
 {% endif %}
 
-<p><b>Category:</b> {{ product.get_category_display }}</p>
+<p>
+    <b>{{ product.get_category_display }}</b>  
+    {% if product.is_featured %}
+      | <b>Featured</b>
+    {% endif %}
+</p>
+
 <p><b>Price:</b> Rp{{ product.price }}</p>
+<p><b>Size:</b> {{ product.size}}</p>
 <p><b>Brand:</b> {{ product.brand }}</p>
 <p>{{ product.description }}</p>
-
-{% if product.is_featured %}
-    <p><b>Featured</b></p>
-{% endif %}
 
 {% if product.user %}
     <p>Seller: {{ product.user.username }}</p>

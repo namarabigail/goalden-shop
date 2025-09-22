@@ -1,9 +1,10 @@
+# Tugas Individu PBP Semester Ganjil 2025/2026
 Abigail Namaratonggi P - 2406495773 - PBP C
 
-Tautan menuju aplikasi -> https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id/
+Link menuju PWS depolyment-> https://abigail-namaratonggi-goaldenshop.pbp.cs.ui.ac.id/
 
 <details>
-<summary>Tugas Individu 2</summary> 
+<summary>Tugas 2: Implementasi Model-View-Template (MVT) pada Django</summary> 
 
 ## Jawaban Pertanyaan
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
@@ -64,7 +65,7 @@ Asdos tutorial 1 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
 </details>
 
 <details>
-<summary>Tugas Individu 3</summary>
+<summary>Tugas 3: Implementasi Form dan Data Delivery pada Django</summary>
 
 ## Jawaban Pertanyaan
 ### 1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
@@ -186,4 +187,35 @@ Asdos tutorial 2 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
 * **`http://127.0.0.1:8000/json/[product_id]`**
 ![alt text](image-4.png)
 ![alt text](image-5.png)
-</details>
+<details>
+<summary>Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django</summary> 
+
+## Jawaban Pertanyaan
+### 1. Apa itu Django `AuthenticationForm`? Jelaskan juga kelebihan dan kekurangannya
+  `AuthenticationForm` adalah form bawaan Django yang dipakai untuk menangani proses login user. Form ini menyediakan field username dan password. Kelebihan dari `AuthenticationForm` adalah kita tidak perlu membuat form login dari awal. Selain itu, form ini juga melakukan validasi secara otomatis seperti mengecek apakah username terdaftar dan apakah password sesuai dengan user tersebut. Namun, `AuthenticationForm` memiliki kekurangan karena form ini belum memiliki fitur keamanan yang lebih seperti Two-Factor Authentication (2FA) dan mengunci akun jika salah password berulang kali.
+
+### 2. Apa perbedaan antara autentikasi dan otorisasi? Bagaimana Django mengimplementasikan kedua konsep tersebut?
+  Autentikasi (authentication) adalah proses untuk mengenali siapa penggunanya dan otorisasi (authorization) adalah proses untuk menentukan apa yang bisa diakses user tersebut. Django mengimplementasikan authentication dengan `django.contrib.auth` yang memiliki fungsi bawaan seperti `authenticate()`, `login()`, dan `logout()`. Sedangkan authorization dilakukan dengan sistem Permissions dan Groups. Pengecekan akses biasanya dilakukan dengan dekorator seperti `@login_required` yang mengatur agar hanya dapat diakses oleh user yang sudah login.
+
+### 3. Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+
+
+### 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+    
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+* **Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya**
+
+
+* **Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal**
+
+* **Menghubungkan model Product dengan User**
+    Modep Product dengan user dihubungkan dengan `ForeignKey`, yang menghubungkan satu product dengan satu user.
+    ```python
+    class Product(models.Model):
+      user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    ...
+    ```
+    `on_delete=models.CASCADE` artinya jika user dihapus, maka semua product dimiliki user tersebut juga akan terhapus.
+
+* **Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi**
