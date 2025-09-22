@@ -187,6 +187,8 @@ Asdos tutorial 2 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
 * **`http://127.0.0.1:8000/json/[product_id]`**
 ![alt text](image-4.png)
 ![alt text](image-5.png)
+</details>
+
 <details>
 <summary>Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django</summary> 
 
@@ -201,7 +203,7 @@ Asdos tutorial 2 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
 
 
 ### 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
-    
+
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
 * **Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya**
