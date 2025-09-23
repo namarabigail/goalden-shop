@@ -200,24 +200,141 @@ Asdos tutorial 2 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
   Autentikasi (authentication) adalah proses untuk mengenali siapa penggunanya dan otorisasi (authorization) adalah proses untuk menentukan apa yang bisa diakses user tersebut. Django mengimplementasikan authentication dengan `django.contrib.auth` yang memiliki fungsi bawaan seperti `authenticate()`, `login()`, dan `logout()`. Sedangkan authorization dilakukan dengan sistem Permissions dan Groups. Pengecekan akses biasanya dilakukan dengan dekorator seperti `@login_required` yang mengatur agar hanya dapat diakses oleh user yang sudah login.
 
 ### 3. Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
-
+  Cookies memiliki kelebihan karena state dapat disimpan langsung di klien sehingga tidak membebani server. Selain itu, cookies juga otomatis terkirim ke setiap request HTTP sehingga memudahkan identifikasi user. Namun, cookies memiliki kekurangan, yaitu hanya dapat menyimpan 4 KB data. Sedangkan session memiliki kelebihan karena state disimpan di server sehingga lebih aman dan dapat menyimpan data dalam jumlah besar. Namun, session harus menyimpan data banyak pengguna aktif sehingga dapat membebani server. 
 
 ### 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
-
+  Cookies tidak sepenuhnya aman karena dapat menimbulkan risiko seperti CSRF (Cross Site Request
+  Forgery) di mana seseorang bisa memlakukan request dari origin yang tidak seharusnya, IDOR (Insecure Direct Object Reference) yang memungkinkan penyerang melakukan enumerasi terhadap ID sebuah object yang ada, atau CORS (Cross-Origin Resource Sharing) yang jika dikonfigurasi salah dapat memperbolehkan origin lain melakukan request ke suatu website atau API. Django menangani risiko ini dengan menyediakan proteksi CSRF bawaan melalui `CsrfViewMiddleware` yang aktif secara default dan menghasilkan token CSRF untuk memastikan setiap permintaan memang berasal dari user yang sesuai, penggunaan UUID pada model agar ID tidak mudah dienumerasi, serta memungkinkan pengaturan CORS agar akses hanya diberikan ke alamat tertentu yang memang diperlukan.
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
 * **Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya**
+  -  Membuka `views.py` dan menambahkan `UserCreationForm` dan `messages`.
+    ```python
+    from django.contrib.auth.forms import UserCreationForm
+    from django.contrib import messages
+    ```
+  - Menambahkan fungsi `register` ke `views.py`.
+     ```python
+     def register(request):
+    form = UserCreationForm()
 
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+    ```
+  - Membuat berkas dan isi `register.html` pada `main/templates`.
+  - Mengimport `register` ke dalam `urls.py` yang ada pada `main`.
+  - Menambahkan `path('register/', register, name='register')` ke dalam `urlpatternns`.
+  - Mengimport `authenticate`, `login`, dan `AuthenticationForm` pada `views.py` yang ada di `main`.
+  - Menambahkan fungsi `login_user` ke dlaam `views.py`
+    ```python
+      def login_user(request):
+        if request.method == 'POST':
+            form = AuthenticationForm(data=request.POST)
+
+            if form.is_valid():
+                  user = form.get_user()
+                  login(request, user)
+                  return redirect('main:show_main')
+
+        else:
+            form = AuthenticationForm(request)
+        context = {'form': form}
+        return render(request, 'login.html', context)
+    ```
+  - Membuat berkas dan isi `login.html` pada `main/templates`.
+  - Mengimport `login_user` pada `urls.py` yang ada di `main` dan tambahkan ` path('login/', login_user, name='login')` ke dalam `urlpatterns`.
+  - Mengimport `logout` pada `views.py` yang ada di `main`.
+  - Menambahkan fungsi `logout_user` ke dlaam `views.py`
+    ```python
+      def logout_user(request):
+        logout(request)
+        return redirect('main:login')
+    ```
+  - Menambahkan kode ini ke dalam `main.html`
+  ```html
+    <a href="{% url 'main:logout' %}">
+      <button>Logout</button>
+    </a>
+  ```
+  - Mengimport `logout_user` pada `urls.py` yang ada di `main` dan tambahkan ` path('logout/',logout_user, name='logout')` ke dalam `urlpatterns`.
 
 * **Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal**
+  - Memmbuat akun pertama melalui registrasi dan login dengan akun tersebut.
+  - Menambahkan tiga dummy data untuk akun pertama, yaitu Argentina Home Jersey #10, Nike Total 90, dan Nike Skills Football.
+  - Logout dari akun pertama
+  - Membuat akun kedua melalui registrasi.
+  - Login menggunakan akun kedua dan membuat 3 duummy data lainnya, yaitu Nike Match Goalkeeper Football Gloves, Liverpool FC Socks 2 Pairs, dan The FIFA Ultimate Football Quiz Book.
 
 * **Menghubungkan model Product dengan User**
-    Modep Product dengan user dihubungkan dengan `ForeignKey`, yang menghubungkan satu product dengan satu user.
+  - Import `User` pada `models.py`.
+  - Model Product dengan user dihubungkan dengan `ForeignKey`, yang menghubungkan satu product dengan satu user.
     ```python
     class Product(models.Model):
       user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     ...
     ```
-    `on_delete=models.CASCADE` artinya jika user dihapus, maka semua product dimiliki user tersebut juga akan terhapus.
+  `on_delete=models.CASCADE` artinya jika user dihapus, maka semua product dimiliki user tersebut juga akan terhapus.
+  - Melakukan migrasi model.
+  - Mengubah `add_product` menjadi seperti ini
+    ```python
+    def add_products(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        product_entry = form.save(commit = False)
+        product_entry.user = request.user
+        product_entry.save()
+        return redirect('main:show_main')
+
+    context = {'form': form}
+    return render(request, "add_products.html", context)
+    ```
+  - Mengubah `show_main` menjadi seperti ini
+    ```python
+    @login_required(login_url='/login')
+    def show_main(request):
+        filter_type = request.GET.get("filter", "all")
+
+        if filter_type == "all":
+            products_list = Product.objects.all()
+        else:
+            products_list = Product.objects.filter(user=request.user)
+        context = {
+            'name': request.user.username,
+            'class': 'PBP C',
+            'products_list': products_list,
+            'last_login': request.COOKIES.get('last_login', 'Never')
+        }
+
+        return render(request, "main.html", context)
+    ```    
+  - Menambahkan tombol filter My dan All pada `main.html`
 
 * **Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi**
+  - Menambahkan import `HttpResponseRedirect`, `reverse`, dan `datetime` pada `views.py` yang ada di `main`.
+  - Mengubah fungsi `login_user` menjadi seperti ini
+    ```python
+    if form.is_valid():
+      user = form.get_user()
+      login(request, user)
+      response = HttpResponseRedirect(reverse("main:show_main"))
+      response.set_cookie('last_login', str(datetime.datetime.now()))
+      return response
+    ``` 
+  - Menambahkan `'last_login': request.COOKIES.get('last_login', 'Never')` pada `context`.
+  - Mengubah fungsi `logout_user` menjadi seperti ini
+    ```python
+    def logout_user(request):
+      logout(request)
+      response = HttpResponseRedirect(reverse('main:login'))
+      response.delete_cookie('last_login')
+      return response
+    ```
+  - Menambahkan `<h5>Sesi terakhir login: {{ last_login }}</h5>` pada `main.html`
+
