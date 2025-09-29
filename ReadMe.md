@@ -231,7 +231,7 @@ Asdos tutorial 2 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
   - Mengimport `register` ke dalam `urls.py` yang ada pada `main`.
   - Menambahkan `path('register/', register, name='register')` ke dalam `urlpatternns`.
   - Mengimport `authenticate`, `login`, dan `AuthenticationForm` pada `views.py` yang ada di `main`.
-  - Menambahkan fungsi `login_user` ke dlaam `views.py`
+  - Menambahkan fungsi `login_user` ke dalam `views.py`
     ```python
       def login_user(request):
         if request.method == 'POST':

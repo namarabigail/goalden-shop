@@ -3,6 +3,7 @@ from main.views import show_main, add_products, show_products, show_xml, show_js
 from main.views import register
 from main.views import login_user
 from main.views import logout_user
+from main.views import edit_products, delete_products
 
 app_name = 'main'
 
@@ -17,4 +18,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
+    path('product/<str:id>/delete', delete_products, name='delete_products'),
+    path('product/<str:id>/edit', edit_products, name='edit_products'),
 ]

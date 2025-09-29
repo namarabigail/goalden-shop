@@ -1,0 +1,30 @@
+{% load static %}
+<nav class="bg-white shadow-sm shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="top-bar flex items-center justify-between py-6">
+            <a href="{% url 'main:show_main' %}" class="logo text-3xl font-bold">
+                GOALDENSHOP
+            </a>
+
+            <div class="category-links flex space-x-6">
+                <a href="/" class="category-link {% if not active_category %}active{% endif %}">Home</a>
+                <a href="?category=sepatu" class="category-link {% if request.GET.category == 'sepatu' %}active{% endif %}">Sepatu</a>
+                <a href="?category=jersey" class="category-link {% if request.GET.category == 'jersey' %}active{% endif %}">Jersey</a>
+                <a href="?category=bola" class="category-link {% if request.GET.category == 'bola' %}active{% endif %}">Bola</a>
+                <a href="?category=aksesoris" class="category-link {% if request.GET.category == 'aksesoris' %}active{% endif %}">Aksesoris</a>
+                <a href="?category=merchandise" class="category-link {% if request.GET.category == 'merchandise' %}active{% endif %}">Merchandise</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="text-right">
+                    <p class="text-[15px] text-[#938b89] leading-tight">Hello,</p>
+                    <p class="font-bold text-[20px] text-[#1800ad] leading-tight">{{ user.username }}</p>
+                </div>
+                <a href="{% url 'main:logout' %}" class="text-red-600 hover:text-red-800 font-semibold transition-colors">
+                    Logout
+                </a>
+            </div>
+        </div>
+
+    </div>
+</nav>

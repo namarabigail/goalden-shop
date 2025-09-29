@@ -15,16 +15,22 @@ from django.core import serializers
 @login_required(login_url='/login')
 def show_main(request):
     filter_type = request.GET.get("filter", "all")
+    category = request.GET.get("category")
 
-    if filter_type == "all":
-        products_list = Product.objects.all()
-    else:
-        products_list = Product.objects.filter(user=request.user)
+    products = Product.objects.all()
+    if category:
+        products = products.filter(category__iexact=category)
+
+    if filter_type == "my":
+        products = products.filter(user=request.user)
+
     context = {
         'name': request.user.username,
         'class': 'PBP C',
-        'products_list': products_list,
-        'last_login': request.COOKIES.get('last_login', 'Never')
+        'products_list': products,
+        'last_login': request.COOKIES.get('last_login', 'Never'),
+        'active_category': category,  # biar bisa highlight active di navbar
+        'active_filter': filter_type, # buat tau sekarang "all" atau "my"
     }
 
     return render(request, "main.html", context)
@@ -49,6 +55,23 @@ def show_products(request, id):
     }
 
     return render(request, "products_detail.html", context)
+
+def edit_products(request, id):
+    news = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=news)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+    return render(request, "edit_products.html", context)
+
+def delete_products(request, id):
+    news = get_object_or_404(Product, pk=id)
+    news.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 def show_xml(request):
     products_list = Product.objects.all()
