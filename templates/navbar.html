@@ -1,12 +1,12 @@
-{% load static %}
 <nav class="bg-white shadow-sm shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="top-bar flex items-center justify-between py-6">
             <a href="{% url 'main:show_main' %}" class="logo text-3xl font-bold">
-                GOALDENSHOP
+                Goaldenshop
             </a>
 
-            <div class="category-links flex space-x-6">
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex category-links flex space-x-6">
                 <a href="/" class="category-link {% if not active_category %}active{% endif %}">Home</a>
                 <a href="{% url 'main:add_products' %}" class="category-link {% if request.path == '/add_products/' %}active{% endif %}">Add Product</a>
                 <a href="?category=sepatu" class="category-link {% if request.GET.category == 'sepatu' %}active{% endif %}">Sepatu</a>
@@ -16,16 +16,82 @@
                 <a href="?category=merchandise" class="category-link {% if request.GET.category == 'merchandise' %}active{% endif %}">Merchandise</a>
             </div>
             
-            <div class="flex items-center space-x-4">
-                <div class="text-right">
-                    <p class="text-[15px] text-[#938b89] leading-tight">Hello,</p>
-                    <p class="font-bold text-[20px] text-[#1800ad] leading-tight">{{ user.username }}</p>
-                </div>
-                <a href="{% url 'main:logout' %}" class="text-red-600 hover:text-red-800 font-semibold transition-colors">
-                    Logout
-                </a>
+            <!-- Desktop User Section -->
+            <div class="hidden md:flex items-center space-x-4">
+                {% if user.is_authenticated %}
+                    <div class="text-right">
+                        <p class="text-[15px] text-[#938b89] leading-tight">Hello,</p>
+                        <p class="font-bold text-[20px] text-[#1800ad] leading-tight">{{ user.username }}</p>
+                    </div>
+                    <a href="{% url 'main:logout' %}" class="text-red-600 hover:text-red-800 font-semibold transition-colors">
+                        Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'main:login' %}" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
+                        Login
+                    </a>
+                    <a href="{% url 'main:register' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium transition-colors">
+                        Register
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button class="mobile-menu-button p-2 text-gray-600 hover:text-gray-900 transition-colors">
+                    <span class="sr-only">Open menu</span>
+                    <div class="w-6 h-6 flex flex-col justify-center items-center">
+                        <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+                        <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5"></span>
+                        <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+                    </div>
+                </button>
             </div>
         </div>
-
     </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden md:hidden bg-white border-t border-gray-200">
+        <div class="px-6 py-4 space-y-4">
+            <!-- Mobile Navigation Links -->
+            <div class="sHpace-y-1">
+                <a href="/" class="block category-link {% if not active_category %}active{% endif %}">Home</a>
+                <a href="{% url 'main:add_products' %}" class="block category-link {% if request.path == '/add_products/' %}active{% endif %}">Add Product</a>
+                <a href="?category=sepatu" class="block category-link {% if request.GET.category == 'sepatu' %}active{% endif %}">Sepatu</a>
+                <a href="?category=jersey" class="block category-link {% if request.GET.category == 'jersey' %}active{% endif %}">Jersey</a>
+                <a href="?category=bola" class="block category-link {% if request.GET.category == 'bola' %}active{% endif %}">Bola</a>
+                <a href="?category=aksesoris" class="block category-link {% if request.GET.category == 'aksesoris' %}active{% endif %}">Aksesoris</a>
+                <a href="?category=merchandise" class="block category-link {% if request.GET.category == 'merchandise' %}active{% endif %}">Merchandise</a>
+            </div>
+
+            <!-- Mobile User Section -->
+            <div class="border-t border-gray-200 pt-4">
+                {% if user.is_authenticated %}
+                    <div class="text-left">
+                        <p class="text-[15px] text-[#938b89] leading-tight">Hello,</p>
+                        <p class="font-bold text-[20px] text-[#1800ad] leading-tight">{{ user.username }}</p>
+                    </div>
+                    <a href="{% url 'main:logout' %}" class="text-red-600 hover:text-red-800 font-semibold transition-colors">
+                        Logout
+                    </a>
+                {% else %}
+                    <div class="space-y-3">
+                        <a href="{% url 'main:login' %}" class="block text-gray-600 hover:text-gray-900 font-medium py-3 transition-colors">
+                            Login
+                        </a>
+                        <a href="{% url 'main:register' %}" class="block bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded text-center transition-colors">
+                            Register
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<script>
+    const btn = document.querySelector("button.mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+    
+    btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+    });
+</script>
 </nav>
