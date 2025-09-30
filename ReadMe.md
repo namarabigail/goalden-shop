@@ -338,3 +338,70 @@ Asdos tutorial 2 sangat membantu saya dalam mengikuti dan mengatasi kesulitan sa
     ```
   - Menambahkan `<h5>Sesi terakhir login: {{ last_login }}</h5>` pada `main.html`
 
+</details>
+
+<details>
+<summary>Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS</summary>
+ 
+## Jawaban Pertanyaan
+### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Urutan dari prioritas tinggi ke rendah adalah:
+* Inline Styles: Style ditulis langsung pada elemen HTML menggunakan `style="..."`. Contohnya adalah `<p style="color:red;">`.
+* ID Selector: Ditandai dengan #, ID selector memiliki prioritas lebih tinggi daripada class atau tag selector. Contoh:  `#option { color: red; }`.
+* Class Selector: Ditandai dengan tanda (.). Contoh: `.option { color: red; }.`
+* Tag/Element Selector: Ini adalah selector dengan prioritas terendah, yang menargetkan semua elemen dengan tag HTML yang sama. `Contoh: 'p, h2 { color: red; }'`
+
+### 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+Responsive design penting karena user mengakses web dari beragam ukuran layar, tidak hanya melalui desktop, tetapi juga dapat melalui device lain seperti smartphone, tablet, dan lainnya. Dengan adanya responsive design, tampilan situs web tetap terlihat baik, konsisten, dan mudah digunakan di berbagai perangkat. Contoh aplikasi yang sudah menerapkan responsive design adalah Instagram, sedangkan yang belum menerapkannya adalah SIAKNG.
+
+### 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+* Margin: Merupakan ruang kosong transparan di luar elemen. Fungsinya adalah untuk memberikan jarak atau pemisah antara elemen tersebut dengan elemen lainnya.
+* Border: Adalah garis yang mengelilingi elemen, berada di antara padding dan margin.
+* Padding: Merupakan ruang kosong transparan di dalam elemen, yaitu di antara konten (teks/gambar) dan border
+
+Cara mengimplementasikannya adalah seperti ini
+```css
+.box {
+    margin: 20px;
+    border: 10px solid black;
+    padding: 15px;
+}
+```
+
+### 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Flexbox dan Grid adalah model layout pada CSS yang digunakan untuk mengatur tata letak elemen-elemen di halaman web.
+* Flexbox (Flexible Box): Model ini mengatur elemen dalam satu dimensi, baik secara horizontal (baris) maupun vertikal (kolom). Kegunaannya adalah untuk membuat elemen-elemen di dalam sebuah container dapat secara fleksibel menyesuaikan ukuran dan posisinya agar sesuai dengan ruang yang tersedia.
+* Grid Layout: Model ini mengatur elemen dalam dua dimensi, yaitu baris dan kolom secara bersamaan. Kegunaannya adalah untuk membangun tata letak yang kompleks dan responsif dengan lebih mudah dan terstruktur.
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+* **Implementasikan fungsi untuk menghapus dan mengedit product.**
+  - Saya membuat fungsi edit_product dan delete_product di views.py
+  - Menambahkan edit_products.html pada `main/templates`.
+  - Mengimport fungsi `edit_product` ke dalam `urls.py` yang ada di `main` dan menambahkan path url ke `urlpatterns`.
+  - Mengimport fungsi `delete_product` ke dalam `urls.py` yang ada di `main` dan menambahkan path url ke `urlpatterns`.
+  - Menampilkan button edit dan delete pada `main.html`
+    ```html
+    ...
+    <a href="{% url 'main:edit_news' news.pk %}">
+         <button>
+             Edit
+         </button>
+     </a>
+     <a href="{% url 'main:delete_news' news.pk %}">
+      <button>
+          Delete
+      </button>
+      ...
+    ```
+* **Kustomisasi desain pada template HTML yang telah dibuat**
+  - Kustomisasi halaman edit product, dan detail product semenarik mungkin.
+  - Menghubungkan Tailwind CSS ke proyek dengan menambahkan script CDN (Content Delivery Network) ke dalam `base.html`.
+  - Membuat file `global.css` untuk custom styling dan menghubungkannya ke `base.html`.
+  - Kustomisasi halaman login, register, dan tambah product.
+    [Login](main/templates/login.html)
+    [Register](main/templates/register.html)
+    [Add Product](main/templates/add_products.html)
+  - Membuat berkas `navbar.html` di direktori `templates/`. Kustomisasi navbar menjadi seperti [ini](templates/navbar.html). Saya menggunakan Tailwind seperti `hidden md:flex` untuk menyembunyikan menu navigasi di perangkat mobile dan menampilkannya di desktop.
+  - Menggunakan tags include `{% include 'navbar.html' %}` ke dalam `main.html`. 
+  - Membuat berkas bernama `card_product.html` di direktori `main/templates/`. Kustomisasi card productmenjadi seperti [ini](main/templates/card_products.html).
+  - Menambahkan foto `no-product.png` ke direktori `static/image`.
