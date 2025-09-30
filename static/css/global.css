@@ -37,12 +37,11 @@ body {
 
 .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.25rem; /* Jarak antar kartu juga bisa dikecilkan */
+    gap: 1.25rem;
 }
 
-/* 4. Gaya Link Kategori */
 .category-link {
-    color: #938b89; /* Warna abu-abu kecoklatan sesuai permintaan */
+    color: #938b89;
     text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 1rem;
@@ -55,14 +54,14 @@ body {
 }
 
 .category-link.active {
-    background-color: #938b89; /* beda warna biar jelas */
+    background-color: #938b89;
     color: white;
     font-weight: 600;
 }
 
 .card {
   background-color: white;
-  border-radius: 0.5rem; /* rounded-lg */
+  border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow: hidden;
   display: flex;
