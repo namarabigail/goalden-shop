@@ -8,6 +8,7 @@
 
             <div class="category-links flex space-x-6">
                 <a href="/" class="category-link {% if not active_category %}active{% endif %}">Home</a>
+                <a href="{% url 'main:add_products' %}" class="category-link {% if request.path == '/add_products/' %}active{% endif %}">Add Product</a>
                 <a href="?category=sepatu" class="category-link {% if request.GET.category == 'sepatu' %}active{% endif %}">Sepatu</a>
                 <a href="?category=jersey" class="category-link {% if request.GET.category == 'jersey' %}active{% endif %}">Jersey</a>
                 <a href="?category=bola" class="category-link {% if request.GET.category == 'bola' %}active{% endif %}">Bola</a>
