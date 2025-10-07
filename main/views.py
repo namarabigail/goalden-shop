@@ -1,7 +1,5 @@
 import datetime
 import json
-import uuid;
-from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -114,55 +112,6 @@ def show_xml_by_id(request, products_id):
     except Product.DoesNotExist:
         return HttpResponse(status=404)
 
-def register_ajax(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        form = UserCreationForm(data)
-
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'status': 'success', 'message': 'Registration successful!'}, status=201)
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
-
-def login_ajax(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        username = data.get('username')
-        password = data.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            response = JsonResponse({'status': 'success', 'message': 'Login successful!'})
-            response.set_cookie('last_login', str(datetime.datetime.now()))
-            return response
-        else:
-            return JsonResponse({'status': 'error', 'message': 'Invalid username or password.'}, status=401)
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
-
-
-def logout_ajax(request):
-    logout(request)
-    response = JsonResponse({'status': 'success', 'message': 'Logout successful!'})
-    response.delete_cookie('last_login')
-    return response
-
-@login_required
-@require_POST
-def delete_product_ajax(request, pk):
-    try:
-        product_id = uuid.UUID(pk)
-        product = Product.objects.get(pk=product_id, user=request.user)
-        product.delete()
-        return JsonResponse({'status': 'success'})
-    except Product.DoesNotExist:
-        return JsonResponse({'status': 'error', 'message': 'Produk tidak ditemukan'}, status=404)
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-
 def show_json_by_id(request, products_id):
     try:
         products_item = Product.objects.filter(pk=products_id)
@@ -244,6 +193,41 @@ def delete_product_ajax(request, id):
         return JsonResponse({"status": "success"}, status=200)
     except Product.DoesNotExist:
         return JsonResponse({"status": "error", "message": "Product not found"}, status=404)
+
+def register_ajax(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        form = UserCreationForm(data)
+
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'status': 'success', 'message': 'Registration successful!'}, status=201)
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
+
+def login_ajax(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        password = data.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            response = JsonResponse({'status': 'success', 'message': 'Login successful!'})
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid username or password.'}, status=401)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
+
+def logout_ajax(request):
+    logout(request)
+    response = JsonResponse({'status': 'success', 'message': 'Logout successful!'})
+    response.delete_cookie('last_login')
+    return response
 
 @csrf_exempt
 @require_POST

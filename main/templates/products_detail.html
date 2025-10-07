@@ -2,87 +2,159 @@
 {% load static %}
 
 {% block meta %}
-<title>{{ product.name }} - Goaldenshop</title>
+<title>Product Detail - Goaldenshop</title>
 {% endblock meta %}
 
 {% block content %}
 <div class="bg-gray-100 w-full min-h-screen font-sans">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        <div class="mb-8">
-           <a href="{% url 'main:show_main' %}" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
-                ← Back to Product List
-            </a>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-        <div class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="aspect-[4/5] relative overflow-hidden">
-                    {% if product.thumbnail %}
-                        <img src="{{ product.thumbnail }}" alt="{{ product.name }}" class="w-full h-full object-cover">
-                    {% else %}
-                        <div class="w-full h-full bg-gray-200"></div>
-                    {% endif %}
-                </div>
-
-                <div class="p-8 flex flex-col">
-                    <div class="flex flex-wrap items-center gap-2 mb-3">
-                        <span class="border border-gray-300 bg-white text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
-                            {{ product.get_category_display }}
-                        </span>
-                        {% if product.is_featured %}
-                        <span class="border border-gray-300 bg-white text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
-                            Featured
-                        </span>
-                        {% endif %}
-                    </div>
-
-                    <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">
-                        {{ product.name }}
-                    </h1>
-                    
-                    <p class="text-sm text-gray-500 mb-6">
-                        By <span class="font-medium text-gray-800">{{ product.brand }}</span> • 
-                        Seller : 
-                        <span class="font-medium text-blue-600">
-                            {% if product.user %}{{ product.user.username }}{% else %}Anonymous{% endif %}
-                        </span>
-                    </p>
-
-                    <p class="text-4xl font-bold text-black mb-6">
-                        Rp{{ product.price }}
-                    </p>
-
-                    <div class="space-y-3 text-sm text-gray-700 border-t border-gray-200 pt-6 mb-8">
-                            <span class="font-semibold w-24 text-gray-500">Size</span>
-                            <span>: {{ product.size }}</span>
-
-                            <div>
-                                <span class="font-semibold w-24 text-gray-500">Stock</span>
-                                <span>: {{ product.stock }} </span>
-                            </div>
-
-                            <div class="flex items-center mt-2">
-                                <span class="text-yellow-400">⭐</span>
-                                <span class="text-gray-600 text-sm ml-1 font-medium">{{ product.rating }}</span>
-                            </div>
-
-                            <div class="border-t border-gray-200 ">
-                                <h2 class="text-xl font-bold text-gray-900 mb-2">Product Description</h2>
-                                <div class="prose prose-sm max-w-none text-gray-600">
-                                    {{ product.description|linebreaks }}
-                                </div>
-                            </div>
-                        </div>
-                    <div class="mt-auto">
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <!-- Back link -->
+    <div class="mb-8">
+      <a href="{% url 'main:show_main' %}" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
+        ← Back to Product List
+      </a>
     </div>
+
+    <!-- Product card -->
+    <div id="product-content" class="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+
+        <!-- Thumbnail -->
+        <div class="aspect-[4/5] relative overflow-hidden">
+          <img id="product-thumbnail" class="w-full h-full object-cover hidden" alt="Product Thumbnail">
+          <div id="no-thumbnail" class="w-full h-full bg-gray-200 flex items-center justify-center hidden">
+            <span class="text-gray-500 font-medium">No Image</span>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="p-8 flex flex-col">
+          <!-- Badges -->
+          <div id="badges-container" class="flex flex-wrap items-center gap-2 mb-3"></div>
+
+          <!-- Name -->
+          <h1 id="product-name" class="text-3xl lg:text-4xl font-extrabold text-gray-900 tracking-tight mb-2">Loading...</h1>
+
+          <!-- Brand & Seller -->
+          <p id="product-brand-seller" class="text-sm text-gray-500 mb-6"></p>
+
+          <!-- Price -->
+          <p id="product-price" class="text-4xl font-bold text-black mb-6"></p>
+
+          <!-- Info -->
+          <div class="space-y-3 text-sm text-gray-700 border-t border-gray-200 pt-6 mb-8">
+            <div><span class="font-semibold w-24 text-gray-500">Size</span>: <span id="product-size">-</span></div>
+            <div><span class="font-semibold w-24 text-gray-500">Stock</span>: <span id="product-stock">-</span></div>
+            <div class="flex items-center mt-2">
+              <span class="text-yellow-400">⭐</span>
+              <span id="product-rating" class="text-gray-600 text-sm ml-1 font-medium">-</span>
+            </div>
+            <div class="border-t border-gray-200 mt-4 pt-4">
+              <h2 class="text-xl font-bold text-gray-900 mb-2">Product Description</h2>
+              <div id="product-description" class="prose prose-sm max-w-none text-gray-600">-</div>
+            </div>
+          </div>
+
+          <div class="mt-auto">
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Loading & Error -->
+    <div id="loading-state" class="text-center py-20 text-gray-500">Loading product...</div>
+    <div id="error-state" class="text-center py-20 text-red-500 hidden">Failed to load product.</div>
+
+  </div>
 </div>
+
+<script>
+// Configuration
+const PRODUCT_ID = "{{ product.id }}";  // bisa juga pake {{ id }} dari URL
+const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '000' %}`.replace('000', PRODUCT_ID);
+
+// DOM Elements
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const productContent = document.getElementById('product-content');
+const productName = document.getElementById('product-name');
+const productPrice = document.getElementById('product-price');
+const productSize = document.getElementById('product-size');
+const productStock = document.getElementById('product-stock');
+const productRating = document.getElementById('product-rating');
+const productDescription = document.getElementById('product-description');
+const productBrandSeller = document.getElementById('product-brand-seller');
+const badgesContainer = document.getElementById('badges-container');
+const productThumbnail = document.getElementById('product-thumbnail');
+const noThumbnail = document.getElementById('no-thumbnail');
+
+// Show/hide sections
+function showState(state) {
+  loadingState.classList.toggle('hidden', state !== 'loading');
+  errorState.classList.toggle('hidden', state !== 'error');
+  productContent.classList.toggle('hidden', state !== 'ready');
+}
+
+// Render product
+function renderProduct(product) {
+  document.title = `${product.name} - Goaldenshop`;
+  productName.textContent = product.name;
+  productPrice.textContent = `Rp${product.price}`;
+  productSize.textContent = product.size;
+  productStock.textContent = product.stock;
+  productRating.textContent = product.rating || '-';
+  productDescription.textContent = product.description || '-';
+  productBrandSeller.innerHTML = 
+    `By <span class="font-medium text-gray-800">${product.brand}</span> • 
+     Seller : <span class="font-medium text-blue-600">${product.user_username || 'Anonymous'}</span>`;
+
+  // badges
+  badgesContainer.innerHTML = '';
+  const catBadge = document.createElement('span');
+  catBadge.className = 'border border-gray-300 bg-white text-gray-700 text-xs font-medium px-3 py-1 rounded-full';
+  catBadge.textContent = product.category;
+  badgesContainer.appendChild(catBadge);
+
+  if (product.is_featured) {
+    const featuredBadge = document.createElement('span');
+    featuredBadge.className = 'border border-gray-300 bg-white text-gray-700 text-xs font-medium px-3 py-1 rounded-full';
+    featuredBadge.textContent = 'Featured';
+    badgesContainer.appendChild(featuredBadge);
+  }
+
+  // thumbnail
+  if (product.thumbnail) {
+    productThumbnail.src = product.thumbnail;
+    productThumbnail.alt = product.name;
+    productThumbnail.classList.remove('hidden');
+    noThumbnail.classList.add('hidden');
+  } else {
+    noThumbnail.classList.remove('hidden');
+  }
+}
+
+// Fetch product
+async function loadProductDetail() {
+  try {
+    showState('loading');
+    const res = await fetch(PRODUCT_DETAIL_ENDPOINT, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) throw new Error('Failed to fetch product');
+    const dataArr = await res.json();
+    const product = Array.isArray(dataArr) ? dataArr[0].fields : dataArr;
+    renderProduct(product);
+    showState('ready');
+  } catch (err) {
+    console.error(err);
+    showState('error');
+  }
+}
+
+// Initialize
+loadProductDetail();
+</script>
 {% endblock content %}

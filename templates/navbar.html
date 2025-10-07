@@ -9,11 +9,11 @@
             <div class="hidden md:flex category-links flex space-x-6">
                 <a href="/" class="category-link {% if not active_category %}active{% endif %}">Home</a>
                 <a href="{% url 'main:add_products' %}" class="category-link {% if request.path == '/add_products/' %}active{% endif %}">Add Product</a>
-                <a href="?category=sepatu" class="category-link {% if request.GET.category == 'sepatu' %}active{% endif %}">Sepatu</a>
-                <a href="?category=jersey" class="category-link {% if request.GET.category == 'jersey' %}active{% endif %}">Jersey</a>
-                <a href="?category=bola" class="category-link {% if request.GET.category == 'bola' %}active{% endif %}">Bola</a>
-                <a href="?category=aksesoris" class="category-link {% if request.GET.category == 'aksesoris' %}active{% endif %}">Aksesoris</a>
-                <a href="?category=merchandise" class="category-link {% if request.GET.category == 'merchandise' %}active{% endif %}">Merchandise</a>
+                <a href="?category=sepatu" class="category-link {% if request.GET.category == 'sepatu' %}active{% endif %}" data-category="sepatu">Sepatu</a>
+                <a href="?category=jersey" class="category-link {% if request.GET.category == 'jersey' %}active{% endif %}" data-category="jersey">Jersey</a>
+                <a href="?category=bola" class="category-link {% if request.GET.category == 'bola' %}active{% endif %}" data-category="bola">Bola</a>
+                <a href="?category=aksesoris" class="category-link {% if request.GET.category == 'aksesoris' %}active{% endif %}" data-category="aksesoris">Aksesoris</a>
+                <a href="?category=merchandise" class="category-link {% if request.GET.category == 'merchandise' %}active{% endif %}" data-category="merchandise">Merchandise</a>
             </div>
             
             <!-- Desktop User Section -->
@@ -54,13 +54,13 @@
         <div class="px-6 py-4 space-y-4">
             <!-- Mobile Navigation Links -->
             <div class="sHpace-y-1">
-                <a href="/" class="block category-link {% if not active_category %}active{% endif %}">Home</a>
-                <a href="{% url 'main:add_products' %}" class="block category-link {% if request.path == '/add_products/' %}active{% endif %}">Add Product</a>
-                <a href="?category=sepatu" class="block category-link {% if request.GET.category == 'sepatu' %}active{% endif %}">Sepatu</a>
-                <a href="?category=jersey" class="block category-link {% if request.GET.category == 'jersey' %}active{% endif %}">Jersey</a>
-                <a href="?category=bola" class="block category-link {% if request.GET.category == 'bola' %}active{% endif %}">Bola</a>
-                <a href="?category=aksesoris" class="block category-link {% if request.GET.category == 'aksesoris' %}active{% endif %}">Aksesoris</a>
-                <a href="?category=merchandise" class="block category-link {% if request.GET.category == 'merchandise' %}active{% endif %}">Merchandise</a>
+                <a href="/" class="category-link {% if not active_category %}active{% endif %}">Home</a>
+                <a href="{% url 'main:add_products' %}" class="category-link {% if request.path == '/add_products/' %}active{% endif %}">Add Product</a>
+                <a href="?category=sepatu" class="category-link {% if request.GET.category == 'sepatu' %}active{% endif %}" data-category="sepatu">Sepatu</a>
+                <a href="?category=jersey" class="category-link {% if request.GET.category == 'jersey' %}active{% endif %}" data-category="jersey">Jersey</a>
+                <a href="?category=bola" class="category-link {% if request.GET.category == 'bola' %}active{% endif %}" data-category="bola">Bola</a>
+                <a href="?category=aksesoris" class="category-link {% if request.GET.category == 'aksesoris' %}active{% endif %}" data-category="aksesoris">Aksesoris</a>
+                <a href="?category=merchandise" class="category-link {% if request.GET.category == 'merchandise' %}active{% endif %}" data-category="merchandise">Merchandise</a>
             </div>
 
             <!-- Mobile User Section -->
