@@ -50,6 +50,21 @@
         <textarea id="description" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product description" required></textarea>
       </div>
 
+      <!-- Rating & Size -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Rating -->
+        <div>
+          <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+          <input type="number" id="rating" name="rating" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="0.0 - 5.0" min="0" max="5" step="0.1" required>
+        </div>
+
+        <!-- Size -->
+        <div>
+          <label for="size" class="block text-sm font-medium text-gray-700">Size</label>
+          <input type="text" id="size" name="size" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="e.g., S, M, L, XL" required>
+        </div>
+      </div>
+
       <!-- Category -->
       <div>
         <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
@@ -124,6 +139,8 @@ function showModal(product = null) {
     form.querySelector("#category").value = product.category;
     form.querySelector("#thumbnail").value = product.thumbnail;
     form.querySelector("#is_featured").checked = product.is_featured;
+    form.querySelector("#rating").value = product.rating;
+    form.querySelector("#size").value = product.size;
     submitButton.textContent = "Save Changes";
   } else {
     submitButton.textContent = "Add Product";

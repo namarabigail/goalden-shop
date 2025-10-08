@@ -164,6 +164,7 @@ def add_products_entry_ajax(request):
     category = request.POST.get("category")
     price = request.POST.get("price")
     size = request.POST.get("size")
+    rating = request.POST.get("rating")
     stock = request.POST.get("stock")
     description = request.POST.get("description")
     thumbnail = request.POST.get("thumbnail")
@@ -178,6 +179,7 @@ def add_products_entry_ajax(request):
         size=size,
         stock=stock,
         description=description,
+        rating=rating,
         thumbnail=thumbnail,
         is_featured=is_featured,
         user=user,
@@ -240,6 +242,8 @@ def edit_product_ajax(request, id):
         product.price = request.POST.get("price")
         product.stock = request.POST.get("stock")
         product.description = request.POST.get("description")
+        product.rating = request.POST.get("rating")
+        product.size = request.POST.get("size")
         product.brand = request.POST.get("brand")
         product.category = request.POST.get("category")
         product.thumbnail = request.POST.get("thumbnail")
