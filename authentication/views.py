@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import json
 from django.views.decorators.csrf import csrf_exempt
 
+
 @csrf_exempt
 def login(request):
     username = request.POST['username']
