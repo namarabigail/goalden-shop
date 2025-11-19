@@ -93,6 +93,7 @@ def show_json(request):
         {
             'id' : product.id,
             'user_id' : product.user.id,
+            'user_username': product.user.username,
             'name': product.name,
             'price': product.price,
             'description': product.description,
@@ -299,3 +300,14 @@ def create_news_flutter(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
+
+def show_json_ser(request):
+    # Mengambil SEMUA objek produk
+    data = Product.objects.all()
+    # Mengembalikan data dalam format JSON
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@login_required # Memastikan hanya pengguna yang sudah login yang bisa mengakses
+def show_json_by_user(request):
+    data_by_user = Product.objects.filter(user=request.user) 
+    return HttpResponse(serializers.serialize("json", data_by_user), content_type="application/json")
